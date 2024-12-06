@@ -15,7 +15,7 @@ The following files are used:
 - **FS1:** Volume flow data (l/min) sampled at 10Hz.
 - **Profile:** Contains various variables, including the "valve condition," which indicates whether the valve is in an optimal state (100%).
 ---
-
+### Train and Evaluate a Logistic Regression Model
 ```bash
 python src/train.py --data-dir path/to/your/data --feature-files file1.txt file2.txt --target-file target.txt --split-index 2000 --model-output path/to/save/model.joblib
 ```
@@ -69,3 +69,47 @@ Instance 1: Predicted class - 100
 Instance 2: Predicted class - 90
 ...
 ```
+
+### Launching the API
+The project includes an API for making predictions using the trained model. Follow these steps to launch the API and interact with it:
+
+#### Start the API with Two Workers
+To start the API using `uvicorn` with two workers, run the following command:
+
+```bash
+uvicorn app:app --host 0.0.0.0 --port 8000 --workers 2
+```
+
+---
+
+### Example Requests
+
+Once the API is running, you can send requests to it for predictions.
+
+
+```python
+import requests
+import json
+
+url = "http://127.0.0.1:8000/predict"
+
+FS1 = [8.99, 0.77, 0.641, 0.006, 0, 0, 0.001, 0.003, ...]
+PS2 = [125.5, 125.39, 125.4, 125.03, 124.05, 123.18, ...]
+    
+
+data = {
+"features": [
+    FS1+PS2,
+    FS1+PS2
+    ]
+    
+}
+data_json = json.dumps(data)
+response = requests.post(url, data=data_json)
+
+if response.status_code == 200:
+    print("Prediction:", response.json())
+else:
+    print("Error:", response.status_code, response.text)
+```
+---
