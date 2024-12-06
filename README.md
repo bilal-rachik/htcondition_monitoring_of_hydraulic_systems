@@ -113,3 +113,12 @@ else:
     print("Error:", response.status_code, response.text)
 ```
 ---
+
+### Build and Run the Docker Container:
+
+To build and run your Docker container, follow these steps:
+
+```bash
+docker build -t fastapi-app .
+docker run -d -p 8000:8000 fastapi-app
+```
