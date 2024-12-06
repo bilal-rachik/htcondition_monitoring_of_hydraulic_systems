@@ -1,3 +1,4 @@
+from pathlib import  Path
 from fastapi import FastAPI, HTTPException
 from joblib import load
 from pydantic import BaseModel
@@ -13,7 +14,7 @@ class InferenceOutput(BaseModel):
 
 app = FastAPI()
 
-MODEL_PATH = "model/logistic_regression_model.joblib"
+MODEL_PATH = Path(__file__).parent.joinpath("model/logistic_regression_model.joblib").as_posix()
 model = load(MODEL_PATH)
 
 

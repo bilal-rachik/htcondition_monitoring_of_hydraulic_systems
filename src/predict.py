@@ -1,8 +1,6 @@
 from pathlib import Path
 import argparse
-
-from utils import load_dataset
-
+from src.utils import load_dataset
 from joblib import load
 import pandas as pd
 from numpy import ndarray

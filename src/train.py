@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Tuple
 import os
 import argparse
-from utils import load_dataset
+from src.utils import load_dataset
 from pandas import DataFrame
 from sklearn.utils import shuffle
 from sklearn.linear_model import LogisticRegression
